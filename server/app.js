@@ -15,18 +15,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
 
 
-
-app.get('/', 
+// THESE ARE ROUTES?
+app.get('/',
 (req, res) => {
   res.render('index');
 });
 
-app.get('/create', 
+app.get('/create',
 (req, res) => {
   res.render('index');
 });
 
-app.get('/links', 
+app.get('/links',
 (req, res, next) => {
   models.Links.getAll()
     .then(links => {
@@ -37,7 +37,7 @@ app.get('/links',
     });
 });
 
-app.post('/links', 
+app.post('/links',
 (req, res, next) => {
   var url = req.body.url;
   if (!models.Links.isValidUrl(url)) {
@@ -76,6 +76,30 @@ app.post('/links',
 /************************************************************/
 // Write your authentication routes here
 /************************************************************/
+// new account vs existing users
+// '/signup' ?
+// app.post('/login', (req, res, next) => {
+//   // check if user already exists with Users.get()
+//   // method extended from Model
+
+//   // compare method -> return user url to START SESSION
+//   // else create user -> return user url
+//   var currentUser = req.body.username; // or is it text?
+//   var typedPass = req.body.password;
+//   return models.Users.get({username: currentUser})
+//     .then(user => {
+//       if (user === undefined) {
+//         // need to change url here?
+//         return models.Users.create({currentUser, typedPass});
+//       } else {
+//         console.log('96 user', user);
+//         // return models.Users.compare({typedPass, user.password, user.salt});
+//       }
+//     })
+//     .catch(err => {
+//       console.error(err);
+//     });
+// })
 
 
 
